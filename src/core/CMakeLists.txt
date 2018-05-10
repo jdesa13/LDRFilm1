@@ -3,4 +3,4 @@ set (CORE_SRCS
 
 SET(LIB_TYPE STATIC)
 
-add_library(core ${LIB_TYPE} ${CORE_SRCS)
+add_library(core ${LIB_TYPE} ${CORE_SRCS})

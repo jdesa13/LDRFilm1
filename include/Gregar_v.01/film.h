@@ -9,7 +9,7 @@ protected:
 	unsigned int width, height;
 
 public:
-	film(); 
+	film();
 	film(int width, int height);
 	~film() {};
 
