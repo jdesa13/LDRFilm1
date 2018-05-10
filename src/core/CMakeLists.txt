@@ -1,5 +1,5 @@
 set (CORE_SRCS
-     corefilm.h corefilm.cpp)
+     create.h create.cpp)
 
 SET(LIB_TYPE STATIC)
 
