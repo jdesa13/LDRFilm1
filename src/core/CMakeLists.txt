@@ -1,8 +1,5 @@
 set (CORE_SRCS
-     ${CMAKE_SOURCE_DIR}/include/Gregar_v.01)
-
-set(C_SRCS
-    create.cpp)
+     ${CMAKE_SOURCE_DIR}/include/Gregar_v.01/create.h create.cpp)
 
 SET(LIB_TYPE STATIC)
 
