@@ -14,13 +14,10 @@ set(FILM_INCLUDE_DIR
 set(CORE_INLCUDE_DIR
     ${CMAKE_SOURCE_DIR}/src/core)
 
-set(H_INLCUDE_DIR
-    ${CMAKE_SOURCE_DIR}/include/Gregar_v.01)
-
 add_subdirectory(src/film)
 add_subdirectory(src/core)
 
-include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${H_INLCUDE_DIR})
+include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR})
 add_executable(LDR_Tester main.cpp)
 
 target_link_libraries(LDR_Tester film)
