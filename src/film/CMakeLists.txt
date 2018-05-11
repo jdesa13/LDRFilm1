@@ -16,5 +16,5 @@ add_library(film ${LIB_TYPE} ${FILM_SRCS})
 
 add_executable(FILM_TESTER unit_test_film.cpp)
 
-#target_link_libraries(FILM_TESTER ${FILM_SRCS})
-#ADD_DEPENDENCIES(FILM_TESTER ${FILM_SRCS})
+target_link_libraries(FILM_TESTER film core)
+ADD_DEPENDENCIES(FILM_TESTER film)

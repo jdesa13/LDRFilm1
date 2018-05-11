@@ -7,13 +7,18 @@
 
 class film {
 protected:
-	unsigned int width, height;
+	unsigned int mWidth, mHeight;
 
-public:
 	film() {};
 	film(int width, int height);
 	~film() {};
-	void save(const std::string &filename, float *ptr);
+	//void save(const std::string &filename, float *ptr);
+
+public:
+
+
+	virtual void save(const std::string &filename, float *ptr) = 0;
+
 };
 
 #endif // _J_FILM

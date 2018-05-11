@@ -2,6 +2,7 @@
 #include "Gregar_v.01/ldrfilm.h"
 #include <iostream>
 #include <stdint.h>
+
 #define WIDTH 1024
 #define HEIGHT 728
 #define BITMAPRANGE 255
@@ -9,7 +10,7 @@
 
 int main(int argc, char** argv)
 {
-	film *red = new film(WIDTH, HEIGHT);
+	ldrfilm test(WIDTH, HEIGHT,0);
 
 	int size = WIDTH * HEIGHT * 4;
 
@@ -31,9 +32,9 @@ int main(int argc, char** argv)
 			pixel[index + 3] = BITMAPRANGE * 1; // Alpha
 		}
 
-	red->save("A.png", (float*)pixel);
-
-	delete red;
+	test.save("A.png", (float*)pixel);
+	std::cout<<"Here";
+	//elete red;
 	
 	return 0;
 }

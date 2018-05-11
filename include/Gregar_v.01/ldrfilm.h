@@ -10,10 +10,10 @@ protected:
 
 public:
 
-	ldrfilm() {};
+	ldrfilm();
 	ldrfilm(int weigth, int height, unsigned int type);
-	~ldrfilm() {};
-	void save(const std::string filename, float *ptr);
+	~ldrfilm();
+	virtual void save(const std::string &filename, float *ptr);
 	int GetFormat();
 	void SetFormat(int type);
 };
