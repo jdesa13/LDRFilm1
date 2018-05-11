@@ -6,18 +6,14 @@
 #define _J_FILM
 
 class film {
-
 protected:
-	film();
-	film(int width, int height);
-	~film() {};
-
 	unsigned int width, height;
 
 public:
-
-	virtual void save(const std::string &filename, float *ptr) = 0;
-
+	film() {};
+	film(int width, int height);
+	~film() {};
+	void save(const std::string &filename, float *ptr);
 };
 
 #endif // _J_FILM

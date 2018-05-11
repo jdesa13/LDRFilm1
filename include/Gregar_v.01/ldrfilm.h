@@ -6,12 +6,13 @@
 class ldrfilm : public film {
 protected:
 	unsigned int mFormat;
+	
 
 public:
-	ldrfilm();
+
+	ldrfilm() {};
 	ldrfilm(int weigth, int height, unsigned int type);
 	~ldrfilm() {};
-
 	void save(const std::string filename, float *ptr);
 	int GetFormat();
 	void SetFormat(int type);
