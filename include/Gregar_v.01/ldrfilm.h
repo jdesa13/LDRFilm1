@@ -5,14 +5,14 @@
 #define _J_LDRFILM
 class ldrfilm : public film {
 protected:
-	unsigned int format;
+	unsigned int mFormat;
 
 public:
 	ldrfilm();
-	ldrfilm(int weigth, int height, enum type);
+	ldrfilm(int weigth, int height, unsigned int type);
 	~ldrfilm() {};
 
-	void save(std::string filename, float *ptr);
+	void save(const std::string filename, float *ptr);
 	int GetFormat();
 	void SetFormat(int type);
 };

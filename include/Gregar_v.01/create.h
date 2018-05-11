@@ -1,7 +1,14 @@
-#include <cstdint>(stdint.h)
 #pragma once
 #ifndef _J_CORE
 #define _J_CORE
+
+#include <iostream>
+
+#include <stdint.h>
+#include "Gregar_v.01/create.h"
+#define BITMAPRANGE 255
+
+
 
 class create {
 protected: 

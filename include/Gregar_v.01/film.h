@@ -1,4 +1,6 @@
-#include<string>
+#include <string>
+#include <iostream>
+
 #pragma once
 #ifndef _J_FILM
 #define _J_FILM
@@ -6,14 +8,15 @@
 class film {
 
 protected:
-	unsigned int width, height;
-
-public:
 	film();
 	film(int width, int height);
 	~film() {};
 
-	void save(std::string filename, float *ptr);
+	unsigned int width, height;
+
+public:
+
+	virtual void save(const std::string &filename, float *ptr) = 0;
 
 };
 

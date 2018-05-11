@@ -22,7 +22,7 @@ set(STB_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/stb)
 
 set(GREGAR_INCLUDE_DIR
-  ${CMAKE_SOURCE_DIR}/include)
+  ${CMAKE_SOURCE_DIR}/include/)
 
 set(FILM_INCLUDE_DIR
     ${CMAKE_SOURCE_DIR}/src/film)

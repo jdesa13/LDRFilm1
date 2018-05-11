@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cstdint>(stdint.h)
-#include "..\..\include\Gregar_v.01\create.h"
-#define BITMAPRANGE 255
+#include "Gregar_v.01/create.h"
 
 create::create(double r, double g, double b)
 {
