@@ -13,3 +13,9 @@
 [submodule "external_libraries/glog"]
 	path = external_libraries/glog
 	url = https://github.com/google/glog
+[submodule "external_libraries/zlib"]
+	path = external_libraries/zlib
+	url = https://github.com/madler/zlib
+[submodule "external_libraries/cnpy"]
+	path = external_libraries/cnpy
+	url = https://github.com/rogersce/cnpy
