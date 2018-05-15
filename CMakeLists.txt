@@ -35,14 +35,23 @@ set(FILM_INCLUDE_DIR
 
 set(CORE_INLCUDE_DIR
     ${CMAKE_SOURCE_DIR}/src/core)
+set(ZLIB_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/zlib
+  ${CMAKE_BINARY_DIR}/external_libraries/zlib
+    )
+set(TBB_ROOT "${CMAKE_SOURCE_DIR}/external_libraries/tbb")
+set(TBB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external_libraries/tbb/include")
+
+
+add_subdirectory(external_libraries)
 
 add_subdirectory(src/core)
 add_subdirectory(src/film)
 
-include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
-                    ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
-add_executable(LDR_Tester main.cpp)
+#include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
+#                    ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
+#add_executable(LDR_Tester main.cpp)
 
-target_link_libraries(LDR_Tester film core)
+#target_link_libraries(LDR_Tester film core)
 
-ADD_DEPENDENCIES(LDR_Tester film core)
+#ADD_DEPENDENCIES(LDR_Tester film core)
