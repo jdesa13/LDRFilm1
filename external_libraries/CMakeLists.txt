@@ -35,7 +35,46 @@ endif()
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 
 
+#include Zlib 
 
+ IF(WIN32)
+
+  # Build zlib (only on Windows)
+
+  SET(ZLIB_BUILD_STATIC_LIBS ON CACHE BOOL " " FORCE)
+
+  SET(ZLIB_BUILD_SHARED_LIBS OFF CACHE BOOL " " FORCE)
+
+  configure_msvc_runtime()
+
+  ADD_SUBDIRECTORY(zlib)
+
+  SET(ZLIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/zlib")
+
+  if(MSVC)
+
+  set(CMAKE_DEBUG_POSTFIX "d")
+
+  endif()
+
+  SET(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/$(CONFIGURATION)/zlibstatic${CMAKE_DEBUG_POSTFIX}.lib")
+ 
+  SET(ZLIB_ROOT "${CMAKE_BINARY_DIR}/$(CONFIGURATION)")
+
+  message(STATUS "ZLIB LIBRARY: " ${ZLIB_LIBRARY})
+
+  message(STATUS "ZLIB ROOT: " ${ZLIB_ROOT})
+
+  SET_PROPERTY(TARGET zlibstatic zlib minigzip example PROPERTY FOLDER "zlib")
+
+  INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/zlib")
+
+  add_definitions(-DWIN32)
+
+  ENDIF()
+
+include_directories(${NUMPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
+add_library(cnpy STATIC "${NUMPY_INCLUDE_DIR}/cnpy.cpp")
 
 
 # check for C++11 Support

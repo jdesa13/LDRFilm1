@@ -21,6 +21,12 @@ endif()
 set(STB_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/stb)
 
+set(CNPY_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/cnpy)
+
+set(ZLIB_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/zlib)
+
 set(GREGAR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/include/)
 
@@ -34,7 +40,7 @@ add_subdirectory(src/core)
 add_subdirectory(src/film)
 
 include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
-                    ${GREGAR_INCLUDE_DIR})
+                    ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
 add_executable(LDR_Tester main.cpp)
 
 target_link_libraries(LDR_Tester film core)

@@ -10,7 +10,8 @@ protected:
 	unsigned int mWidth, mHeight;
 
 	film() {};
-	film(int width, int height);
+	film(int width, int height)
+		: mWidth(width), mHeight(height) {};
 	~film() {};
 	//void save(const std::string &filename, float *ptr);
 
