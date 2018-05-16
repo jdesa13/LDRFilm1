@@ -1,3 +1,6 @@
 [submodule "external_libraries/stb"]
 	path = external_libraries/stb
 	url = https://github.com/nothings/stb.git
+[submodule "external_libraries/openexr"]
+	path = external_libraries/openexr
+	url = https://github.com/openexr/openexr.git
