@@ -64,6 +64,25 @@ endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" PARENT_SCOPE)
 
+#############################################################
+# Place Libs and exe files in one Output paths
+##############################################################
+if(NOT OVERRIDE_OUTPUT_DIRECTORY)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
+
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch -Wno-tautological-compare -Wno-deprecated-register")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4275 /wd4267 /wd4244 /wd4477 /wd4996 /wd4800 /wd4334 /wd4251 /wd4305 /wd4302 /wd4311 /wd4018")
+endif()
+
+
 
 #Build Zlib ##############################################
 
@@ -105,6 +124,85 @@ execute_process(
        ${CMAKE_BINARY_DIR}/Debug)
 endif()
 
+
+##############################################################
+# ILMBase
+##############################################################
+OPTION (NAMESPACE_VERSIONING "Namespace Versioning" OFF)
+OPTION (BUILD_SHARED_LIBS "Namespace Versioning" OFF)
+ADD_SUBDIRECTORY(openexr/IlmBase)
+SET_PROPERTY(TARGET Iex IexMath Half Imath IlmThread HalfTest IexTest IlmThread ImathTest toFloat eLut PROPERTY FOLDER "ILMBase")
+
+
+##############################################################
+# OpenEXR
+##############################################################
+include_directories(
+  openexr/IlmBase/Iex
+  openexr/IlmBase/Imath
+  openexr/IlmBase/IlmThread
+  openexr/IlmBase/Half
+  openexr/IlmBase/config
+  openexr/IlmBase/Imath
+  openexr/OpenEXR/config
+  openexr/IlmBase/config
+  ${CMAKE_CURRENT_SOURCE_DIR}/zlib
+  ${CMAKE_CURRENT_BINARY_DIR}/zlib
+)
+
+
+IF(WIN32)
+include_directories(
+  openexr/IlmBase/config.windows
+  )
+ELSE()
+include_directories(
+  ${CMAKE_BINARY_DIR}/openexr/OpenEXR/config 
+  ${CMAKE_BINARY_DIR}/openexr/IlmBase/config
+  )
+ENDIF()
+
+ IF(WIN32)
+   SET(OPENEXR_LIBS IlmImf Imath Half zlibstatic)
+ ELSE()
+   SET(OPENEXR_LIBS IlmImf Imath Half)
+ ENDIF()
+
+SET(EXR_LIBS Iex IlmImf IlmThread)
+SET(ILMBASE_PACKAGE_PREFIX "${CMAKE_BINARY_DIR}/$(CONFIGURATION)")
+
+LINK_DIRECTORIES ("${CMAKE_BINARY_DIR}")
+SET(BUILD_SHARED_LIBS OFF CACHE BOOL " " FORCE)
+SET(NAMESPACE_VERSIONING OFF CACHE BOOL " " FORCE)
+
+ADD_SUBDIRECTORY(openexr/OpenEXR)
+SET_PROPERTY(TARGET b44ExpLogTable dwaLookups IlmImfUtilTest IlmImfUtil exrenvmap exrheader IlmImfTest exrmakepreview exrmaketiled exrmultipart exrmultiview exrstdattr IlmImf IlmImfExamples IlmImfFuzzTest PROPERTY FOLDER "openEXR")
+
+
+IF(WIN32)
+add_custom_target(CopyIlmBaseLibs
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_BINARY_DIR}/$(CONFIGURATION)/b44ExpLogTable.exe
+  ${CMAKE_CURRENT_BINARY_DIR}/openexr/OpenEXR/IlmImf/$(CONFIGURATION)/b44ExpLogTable.exe
+   COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_BINARY_DIR}/$(CONFIGURATION)/dwaLookups.exe
+  ${CMAKE_CURRENT_BINARY_DIR}/openexr/OpenEXR/IlmImf/$(CONFIGURATION)/dwaLookups.exe 
+)
+ELSE()
+add_custom_target(CopyIlmBaseLibs
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_BINARY_DIR}/b44ExpLogTable
+  ${CMAKE_CURRENT_BINARY_DIR}/openexr/OpenEXR/IlmImf/b44ExpLogTable
+   COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_BINARY_DIR}/dwaLookups
+  ${CMAKE_CURRENT_BINARY_DIR}/openexr/OpenEXR/IlmImf/dwaLookups
+)
+ENDIF()
+SET_PROPERTY(TARGET CopyIlmBaseLibs b44ExpLogTable dwaLookups IlmImfUtilTest IlmImfUtil exrenvmap exrheader IlmImfTest exrmakepreview exrmaketiled exrmultipart exrmultiview exrstdattr IlmImf IlmImfExamples IlmImfFuzzTest PROPERTY FOLDER "openEXR")
+
+ADD_DEPENDENCIES(CopyIlmBaseLibs Iex Imath IlmThread Half)
+ADD_DEPENDENCIES(CopyIlmBaseLibs b44ExpLogTable dwaLookups)
+ADD_DEPENDENCIES(IlmImf CopyIlmBaseLibs)
 
 #Add Exporter to allow to render to a data array in Numpy ##############
 include_directories(${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
