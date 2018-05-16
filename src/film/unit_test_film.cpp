@@ -11,7 +11,7 @@
 
 int main(int argc, char** argv)
 {
-	//ldrfilm test(WIDTH, HEIGHT,0);
+	ldrfilm test_ldr(WIDTH, HEIGHT,0);
 	nfilm test(WIDTH,HEIGHT);
 
 	int size = WIDTH * HEIGHT * 4;
@@ -34,8 +34,8 @@ int main(int argc, char** argv)
 			pixel[index + 3] = BITMAPRANGE * 1; // Alpha
 		}
 
-	//test.save("A.png", (float*)pixel);
-	//std::cout<<"Here";
+	test_ldr.save("A.png", (float*)pixel);
+	std::cout<<"Here";
 
 	test.save("A.npz", (float*)pixel);
 	std::cout << "Here";
