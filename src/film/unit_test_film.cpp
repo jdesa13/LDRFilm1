@@ -30,10 +30,10 @@ int main(int argc, char** argv)
 		for (int cols = 0; cols < WIDTH; cols++)
 		{
 			index = rows * WIDTH * 4 + cols * 4;
-			pixel[index + 0] = BITMAPRANGE * 1; //Red
-			pixel[index + 1] = BITMAPRANGE * 0; //Green
-			pixel[index + 2] = BITMAPRANGE * 0; //Blue
-			pixel[index + 3] = BITMAPRANGE * 1; // Alpha
+			pixel[index + 0] = 1.0; //Red
+			pixel[index + 1] = 1.0; //Green
+			pixel[index + 2] = 0.0; //Blue
+			pixel[index + 3] = 1.0; // Alpha
 		}
 
 	test_ldr.save("A.png", pixel);

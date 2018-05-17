@@ -21,15 +21,30 @@ ldrfilm::~ldrfilm() {}
 	{
 
 
+		//Scale and cast for bitmap color range.
+		uint8_t *pixels = new uint8_t[mWidth * mHeight * 4];
+
+		unsigned int index = 0;
+		for (int rows = 0; rows<mHeight; rows++)
+			for (int cols = 0; cols < mWidth; cols++)
+			{
+				index = rows*mWidth * 4 + cols * 4;
+				pixels[index + 0] = 255 * ptr[index + 0];
+				pixels[index + 1] = 255 * ptr[index + 1];
+				pixels[index + 2] = 255 * ptr[index + 2];
+				pixels[index + 3] = 255 * ptr[index + 3];
+			}
+
+
 		switch(mFormat) {
 			 case 0 :
-				 stbi_write_png(filename.c_str(), mWidth, mHeight, 4, (uint32_t*)ptr, mWidth * 4);
+				 stbi_write_png(filename.c_str(), mWidth, mHeight, 4, pixels, mWidth * 4);
 			 break;
 			 case 1:
-				 stbi_write_bmp(filename.c_str(), mWidth, mHeight, 4, ptr);
+				 stbi_write_bmp(filename.c_str(), mWidth, mHeight, 4, pixels);
 			 break;
 			 case 2:
-				 stbi_write_jpg(filename.c_str(), mWidth, mHeight,4,ptr,50);
+				 stbi_write_jpg(filename.c_str(), mWidth, mHeight,4, pixels,100);
 			 break;
 			 default:
 			 std::cout<<"ERROR: - YOU MESSED UP - Image did not write properly"<<std::endl;
