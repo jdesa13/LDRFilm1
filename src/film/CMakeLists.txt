@@ -20,11 +20,18 @@ SET(LIB_TYPE STATIC)
 add_library(film ${LIB_TYPE} ${FILM_SRCS})
 
 
-set(FILM_DEPENDENCIES core film cnpy ${ZLIB_LIBRARY})
+set(FILM_DEPENDENCIES core film cnpy )
 
 ADD_DEPENDENCIES(film ${FILM_DEPENDENCIES})
 
 add_executable(FILM_TESTER unit_test_film.cpp)
 
-target_link_libraries(FILM_TESTER film core ${FILM_DEPENDENCIES})
-ADD_DEPENDENCIES(FILM_TESTER film core ${FILM_DEPENDENCIES})
+  IF(WIN32)
+    SET(OPENEXR_LIBS IlmImf Imath Half zlibstatic)
+  ELSE()
+    SET(OPENEXR_LIBS IlmImf Imath Half)
+  ENDIF()
+
+
+target_link_libraries(FILM_TESTER  ${FILM_DEPENDENCIES} ${OPENEXR_LIBS} ${ZLIB_LIBRARY})
+ADD_DEPENDENCIES(FILM_TESTER ${FILM_DEPENDENCIES})

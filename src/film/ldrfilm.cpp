@@ -21,10 +21,9 @@ ldrfilm::~ldrfilm() {}
 	{
 
 
-
 		switch(mFormat) {
 			 case 0 :
-				 stbi_write_png(filename.c_str(), mWidth, mHeight, 4, ptr, mWidth * 4);
+				 stbi_write_png(filename.c_str(), mWidth, mHeight, 4, (uint8_t*)ptr, mWidth * 4*sizeof(float));
 			 break;
 			 case 1:
 				 stbi_write_bmp(filename.c_str(), mWidth, mHeight, 4, ptr);

@@ -5,8 +5,8 @@
 #include <iostream>
 #include <stdint.h>
 
-#define WIDTH 4
-#define HEIGHT 4
+#define WIDTH 8
+#define HEIGHT 6
 #define BITMAPRANGE 255
 
 

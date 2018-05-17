@@ -59,9 +59,6 @@ set(CNPY_INCLUDE_DIR
 set(ZLIB_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/zlib)
   
-set(OPENEXR_INCLUDE_DIR
-  ${CMAKE_SOURCE_DIR}/external_libraries/openexr)
-
 set(GREGAR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/include/)
 
@@ -75,6 +72,14 @@ set(ZLIB_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/zlib
   ${CMAKE_BINARY_DIR}/external_libraries/zlib
     )
+set(OPENEXR_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/OpenEXR/IlmImf
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/Imath
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/Iex
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/Half
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/OpenEXR/config.windows
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/config.windows
+  )
 
 set(TBB_ROOT "${CMAKE_SOURCE_DIR}/external_libraries/tbb")
 set(TBB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external_libraries/tbb/include")

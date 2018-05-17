@@ -7,12 +7,16 @@
 #include <map>
 #include <string>
 
-#include "OpenEXR/IlmImf/ImfFrameBuffer.h"
-#include "OpenEXR/IlmImf/ImfHeader.h"
-#include "OpenEXR/IlmImf/ImfOutputFile.h"
-#include "OpenEXR/IlmImf/ImfChannelList.h"
-#include "OpenEXR/IlmImfExamples/drawImage.h"
+#include <ImfInputFile.h>
+#include <ImfOutputFile.h>
+#include <ImfChannelList.h>
+#include <ImfStringAttribute.h>
+#include <ImfVersion.h>
+#include <ImfIO.h>
+#include <ImfArray.h>
+#include <ImfNamespace.h>
 
+namespace IMF = OPENEXR_IMF_NAMESPACE;
 #pragma once
 #ifndef _J_HDRFILM
 #define _J_HDRFILM
