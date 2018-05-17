@@ -10,6 +10,8 @@
 #include <map>
 #include <string>
 
+#ifndef _J_NUMFILM
+#define _J_NUMFILM
 class nfilm : public film {
 public:
 	nfilm();
@@ -17,3 +19,4 @@ public:
 	~nfilm();
 	virtual void save(const std::string &filename, float *ptr);
 };
+#endif

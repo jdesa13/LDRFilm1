@@ -1,6 +1,7 @@
 #include "Gregar_v.01/film.h"
 #include "Gregar_v.01/ldrfilm.h"
 #include "Gregar_v.01/numfilm.h"
+#include "Gregar_v.01/hdrfilm.h"
 #include <iostream>
 #include <stdint.h>
 
@@ -12,6 +13,7 @@
 int main(int argc, char** argv)
 {
 	ldrfilm test_ldr(WIDTH, HEIGHT,0);
+	hdrfilm test_hdr(WIDTH, HEIGHT);
 	nfilm test(WIDTH,HEIGHT);
 
 	int size = WIDTH * HEIGHT * 4;
@@ -36,6 +38,9 @@ int main(int argc, char** argv)
 
 	test_ldr.save("A.png", (float*)pixel);
 	std::cout<<"Here";
+
+	test_hdr.save("A.exr", (float*)pixel);
+	std::cout << "Here";
 
 	test.save("A.npz", (float*)pixel);
 	std::cout << "Here";

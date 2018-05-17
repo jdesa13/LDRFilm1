@@ -11,7 +11,8 @@ LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
 set(FILM_SRCS
     ${GREGAR_INCLUDE_DIR}/Gregar_v.01/film.h film.cpp
     ${GREGAR_INCLUDE_DIR}/Gregar_v.01/ldrfilm.h ldrfilm.cpp
-    ${GREGAR_INCLUDE_DIR}/Gregar_v.01/numfilm.h numfilm.cpp)
+    ${GREGAR_INCLUDE_DIR}/Gregar_v.01/numfilm.h numfilm.cpp
+	${GREGAR_INCLUDE_DIR}/Gregar_v.01/hdrfilm.h hdrfilm.cpp)
 
 
 SET(LIB_TYPE STATIC)
@@ -26,4 +27,4 @@ ADD_DEPENDENCIES(film ${FILM_DEPENDENCIES})
 add_executable(FILM_TESTER unit_test_film.cpp)
 
 target_link_libraries(FILM_TESTER film core ${FILM_DEPENDENCIES})
-ADD_DEPENDENCIES(FILM_TESTER core ${FILM_DEPENDENCIES})
+ADD_DEPENDENCIES(FILM_TESTER film core ${FILM_DEPENDENCIES})

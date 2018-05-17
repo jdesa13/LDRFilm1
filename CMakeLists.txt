@@ -58,6 +58,9 @@ set(CNPY_INCLUDE_DIR
 
 set(ZLIB_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/zlib)
+  
+set(OPENEXR_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/openexr)
 
 set(GREGAR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/include/)

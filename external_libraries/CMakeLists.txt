@@ -94,8 +94,11 @@ IF(WIN32)
   if(MSVC)
     set(CMAKE_DEBUG_POSTFIX "d")
   endif()
-  SET(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/$(CONFIGURATION)/zlibstatic${CMAKE_DEBUG_POSTFIX}.lib" PARENT_SCOPE)
-  SET(ZLIB_ROOT "${CMAKE_BINARY_DIR}/$(CONFIGURATION)" PARENT_SCOPE)
+  SET(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/$(CONFIGURATION)/zlibstatic${CMAKE_DEBUG_POSTFIX}.lib")
+  SET(ZLIB_ROOT "${CMAKE_BINARY_DIR}/$(CONFIGURATION)")
+  SET(ZLIB_LIBRARY ${ZLIB_LIBRARY} PARENT_SCOPE)
+  SET(ZLIB_ROOT ${ZLIB_ROOT} PARENT_SCOPE)
+
   message(STATUS "ZLIB LIBRARY: " ${ZLIB_LIBRARY})
   message(STATUS "ZLIB ROOT: " ${ZLIB_ROOT})
   SET_PROPERTY(TARGET zlibstatic zlib minigzip example PROPERTY FOLDER "zlib")
@@ -133,6 +136,18 @@ OPTION (BUILD_SHARED_LIBS "Namespace Versioning" OFF)
 ADD_SUBDIRECTORY(openexr/IlmBase)
 SET_PROPERTY(TARGET Iex IexMath Half Imath IlmThread HalfTest IexTest IlmThread ImathTest toFloat eLut PROPERTY FOLDER "ILMBase")
 
+IF (WIN32) #OpenEXR right off the bat sets a Runtime_dir. if it cannot cd into it errors.
+  IF(MSVC) #I hate you MSVC sometimes...
+  SET(RUNTIME_DIR ${CMAKE_BINARY_DIR}/Release/bin
+${CMAKE_BINARY_DIR}/Debug/bin ${CMAKE_BINARY_DIR}/bin)
+  ELSE()
+    SET(RUNTIME_DIR ${CMAKE_BINARY_DIR}/bin)
+  ENDIF()
+
+ELSE ()
+  SET(RUNTIME_DIR ${CMAKE_BINARY_DIR}/lib)
+ENDIF ()
+file(MAKE_DIRECTORY ${RUNTIME_DIR})
 
 ##############################################################
 # OpenEXR
