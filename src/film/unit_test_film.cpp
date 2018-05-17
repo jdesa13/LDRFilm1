@@ -5,8 +5,8 @@
 #include <iostream>
 #include <stdint.h>
 
-#define WIDTH 8
-#define HEIGHT 6
+#define WIDTH 800
+#define HEIGHT 600
 #define BITMAPRANGE 255
 
 
@@ -18,14 +18,14 @@ int main(int argc, char** argv)
 
 	int size = WIDTH * HEIGHT * 4;
 
-	uint8_t *pixel = new uint8_t[size];
+	float *pixel = new float[size];
 	if (pixel == NULL)
 	{
 		std::cout << "Failed to allocate memory" << std::endl;
 	}
 
 
-    unsigned int index = 0;
+	unsigned int index = 0;
 	for (int rows = 0; rows<HEIGHT; rows++)
 		for (int cols = 0; cols < WIDTH; cols++)
 		{
@@ -36,13 +36,13 @@ int main(int argc, char** argv)
 			pixel[index + 3] = BITMAPRANGE * 1; // Alpha
 		}
 
-	test_ldr.save("A.png", (float*)pixel);
+	test_ldr.save("A.png", pixel);
 	std::cout<<"Here";
 
-	test_hdr.save("A.exr", (float*)pixel);
+	test_hdr.save("A.exr", pixel);
 	std::cout << "Here";
 
-	test.save("A.npz", (float*)pixel);
+	test.save("A.npz", pixel);
 	std::cout << "Here";
 	//elete red;
 	
