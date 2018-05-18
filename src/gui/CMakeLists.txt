@@ -16,11 +16,11 @@ include_directories(
 
 LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
 
-#set()
-#ADD_DEPENDENCIES()
+set(GUI_DEPENDENCIES glfw nanogui core)
+ADD_DEPENDENCIES(gui ${GUI_DEPENDENCIES})
 
 add_executable(GUI_TESTER unit_test_gui.cpp)
 
 
-target_link_libraries(GUI_TESTER  gui)
-ADD_DEPENDENCIES(GUI_TESTER gui)
+target_link_libraries(GUI_TESTER  gui ${GUI_DEPENDENCIES})
+ADD_DEPENDENCIES(GUI_TESTER gui ${GUI_DEPENDENCIES})

@@ -83,7 +83,7 @@ set(OPENEXR_INCLUDE_DIR
   
 
 set(GLFW_INCLUDE_DIR
-  ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/ext/glfw/include)
+  ${CMAKE_SOURCE_DIR}/external_libraries/nanogui/ext/glfw/include)
 set(GLAD_INCLUDE_DIR
   ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/ext/glad/include)
 set(NANOVG_INCLUDE_DIR
