@@ -99,6 +99,7 @@ add_subdirectory(external_libraries)
 
 add_subdirectory(src/core)
 add_subdirectory(src/film)
+add_subdirectory(src/gui)
 
 #include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
 #                   ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR}${ZLIB_INCLUDE_DIR})

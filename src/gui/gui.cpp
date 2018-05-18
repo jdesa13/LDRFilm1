@@ -10,6 +10,7 @@ gui::gui(int width, int height)
 {
 	mWidth = width; 
 	mHeight = height;
+	nanogui::Screen(nanogui::Vector2i(mWidth,mHeight),"Test");
 	
 }
 
