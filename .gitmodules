@@ -22,3 +22,6 @@
 [submodule "external_libraries/openexr"]
 	path = external_libraries/openexr
 	url = https://github.com/openexr/openexr.git
+[submodule "external_libraries/nanogui"]
+	path = external_libraries/nanogui
+	url = https://github.com/wjakob/nanogui.git
