@@ -81,8 +81,15 @@ set(OPENEXR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/config.windows
   )
   
-set(NANO_INCLUDE_DIR
-  ${CMAKE_SOURCE_DIR}/external_libraries/nanogui)
+
+set(GLFW_INCLUDE_DIR
+  ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/ext/glfw/include)
+set(GLAD_INCLUDE_DIR
+  ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/ext/glad/include)
+set(NANOVG_INCLUDE_DIR
+  ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/ext/nanovg/src)
+set(NANOGUI_INCLUDE_DIR
+  ${CMAKE_CURRENT_SOURCE_DIR}/external_libraries/nanogui/include)
 
 set(TBB_ROOT "${CMAKE_SOURCE_DIR}/external_libraries/tbb")
 set(TBB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external_libraries/tbb/include")

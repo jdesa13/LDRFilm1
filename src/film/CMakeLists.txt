@@ -4,7 +4,6 @@ include_directories(
 	${CNPY_INCLUDE_DIR} 
 	${ZLIB_INCLUDE_DIR}
 	${OPENEXR_INCLUDE_DIR}
-	${NANO_INCLUDE_DIR}
 	)
 
 LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
@@ -13,8 +12,7 @@ set(FILM_SRCS
     ${GREGAR_INCLUDE_DIR}/Gregar_v.01/film.h film.cpp
     ${GREGAR_INCLUDE_DIR}/Gregar_v.01/ldrfilm.h ldrfilm.cpp
     ${GREGAR_INCLUDE_DIR}/Gregar_v.01/numfilm.h numfilm.cpp
-	${GREGAR_INCLUDE_DIR}/Gregar_v.01/hdrfilm.h hdrfilm.cpp
-	${GREGAR_INCLUDE_DIR}/Gregar_v.01/gui.h gui.cpp)
+	${GREGAR_INCLUDE_DIR}/Gregar_v.01/hdrfilm.h hdrfilm.cpp)
 
 
 SET(LIB_TYPE STATIC)

@@ -222,3 +222,13 @@ ADD_DEPENDENCIES(IlmImf CopyIlmBaseLibs)
 #Add Exporter to allow to render to a data array in Numpy ##############
 include_directories(${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
 add_library(cnpy STATIC "${CNPY_INCLUDE_DIR}/cnpy.cpp")
+
+#include Nanogui - a really nice setup up by Wenzel Jakob #################################
+#OpenGL setup for the viewer (GLFW and GLEW)
+set(NANOGUI_BUILD_EXAMPLE OFF CACHE BOOL " " FORCE)
+set(NANOGUI_BUILD_SHARED  OFF CACHE BOOL " " FORCE)
+set(NANOGUI_BUILD_PYTHON  OFF CACHE BOOL " " FORCE)
+SET(GLFW_BUILD_DOCS OFF CACHE BOOL "glfw docs")
+SET(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "glfw examples")
+SET(GLFW_BUILD_TESTS OFF CACHE BOOL "glfw tests")
+add_subdirectory (nanogui)
