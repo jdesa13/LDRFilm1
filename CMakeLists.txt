@@ -80,6 +80,9 @@ set(OPENEXR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/openexr/OpenEXR/config.windows
   ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/config.windows
   )
+  
+set(NANO_INCLUDE_DIR
+  ${CMAKE_SOURCE_DIR}/external_libraries/nanogui)
 
 set(TBB_ROOT "${CMAKE_SOURCE_DIR}/external_libraries/tbb")
 set(TBB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external_libraries/tbb/include")
