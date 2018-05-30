@@ -81,6 +81,9 @@ set(OPENEXR_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/openexr/IlmBase/config.windows
   )
   
+set(EIGEN_INCLUDE_DIR
+ ${CMAKE_SOURCE_DIR}/external_libraries/eigen)
+  
 
 set(GLFW_INCLUDE_DIR
   ${CMAKE_SOURCE_DIR}/external_libraries/nanogui/ext/glfw/include)
@@ -99,13 +102,14 @@ add_subdirectory(external_libraries)
 
 add_subdirectory(src/core)
 add_subdirectory(src/film)
-add_subdirectory(src/gui)
+#add_subdirectory(src/gui)
 
-#include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
-#                   ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR}${ZLIB_INCLUDE_DIR})
+include_directories(${FILM_INCLUDE_DIR} ${CORE_INLCUDE_DIR} ${STB_INCLUDE_DIR} 
+                  ${GREGAR_INCLUDE_DIR} ${CNPY_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR} ${EIGEN_INCLUDE_DIR})
 
-#add_executable(LDR_Tester main.cpp)
+				   
+add_executable(LDR_Tester main.cpp)
 
-#target_link_libraries(LDR_Tester film core)
+target_link_libraries(LDR_Tester film core)
 
-#ADD_DEPENDENCIES(LDR_Tester film core)
+ADD_DEPENDENCIES(LDR_Tester film core)
