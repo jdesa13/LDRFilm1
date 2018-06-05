@@ -38,7 +38,7 @@ int miss = 0;
 int width = 800;
 int height = 600;
 
-int circletest(Eigen::Vector3d origin,Eigen::Vector3d dr, Eigen::Vector3d cen, int r) {
+Eigen::Vector3d circletest(Eigen::Vector3d origin,Eigen::Vector3d dr, Eigen::Vector3d cen, int r) {
 
 	int rad = pow(r,2);
 	float Xo, Yo, Zo, Xd, Yd, Zd, Xc, Yc, Zc;
@@ -64,25 +64,24 @@ int circletest(Eigen::Vector3d origin,Eigen::Vector3d dr, Eigen::Vector3d cen, i
 
 	if (D == 0) {
 		t = -b / 2;
-		return hit;
 	}
 	else if (D > 0) {
 		float t0 = (-b - pow(D, (1 / 2))) / (a * 2);
 		float t1 = (-b + pow(D, (1 / 2))) / (a * 2);
 		if (t0 > 0) {
 			t = t0;
-			return hit;
 		}
 		else
 			t = t1;
-		return hit;
 	}
 	else
 	{
-		return miss; 
+		return origin; 
 	}
 
+	Eigen::Vector3d p = origin + dr * t;
 
+	return p;
 }
 
 int intersectiontest(Eigen::Vector3d p, Eigen::Vector3d dr, Eigen::Vector3d triangle[]) {
@@ -131,6 +130,45 @@ float intersectionloc(Eigen::Vector3d p, Eigen::Vector3d dr, Eigen::Vector3d tri
 	return t;
 }
 
+Eigen::Vector3d shade(Eigen::Vector3d origin, Eigen::Vector3d sect, float Kd, float Ks, float Ka, Eigen::Vector3d Scol, Eigen::Vector3d Lcol, Eigen::Vector3d Lpos, Eigen::Vector3d Sc) {
+
+	Eigen::Vector3d Hitc;
+	Eigen::Vector3d w (0,0,0);
+	if (sect == origin) {
+		Hitc = w;
+	}
+	else
+	{
+		Eigen::Vector3d rdl = (Lpos - sect);
+		Eigen::Vector3d n = (sect - Sc);
+		Eigen::Vector3d rdeye = sect - origin;
+		Eigen::Vector3d Nnorm = n.normalized();
+		Eigen::Vector3d Snorm = Scol.normalized();
+		Eigen::Vector3d Lnorm = Lcol.normalized();
+
+		float ldn = Nnorm.dot(rdl.normalized());
+
+		if (ldn < 0) {
+			ldn = 0;
+		}
+
+		//float LNpos = (Lpos.normalized()).dot(Nnorm);
+		Eigen::Vector3d rp = (2 * ldn)*Nnorm - Lpos.normalized();
+		float rpeye = rp.normalized().dot(rdeye.normalized());
+		float shine = 50;
+		float rdvn = pow(rpeye, shine);
+
+		Eigen::Vector3d SLcol(Snorm(0)*Lnorm(0), Snorm(1)*Lnorm(1), Snorm(2)*Lnorm(2));
+
+		Eigen::Vector3d Dc = Kd * SLcol.normalized() * ldn;
+		Eigen::Vector3d Ac = Ka * SLcol.normalized() * Kd;
+		Eigen::Vector3d EV = Ks * SLcol.normalized() * rdvn;
+
+		Hitc = Dc + Ac + EV;
+	}
+	return Hitc;
+}
+
 
 int main(int argc, char** argv)
 {
@@ -156,28 +194,45 @@ int main(int argc, char** argv)
 			Eigen::Vector3d Pc(Pcx,Pcy,-1);
 			Eigen::Vector3d Rd = Pc - P;
 
-			float r = intersectionloc(P, Rd, red);
-			float w = intersectionloc(P, Rd, tri);
+			float point = intersectiontest(P, Rd, tri);
+			float points = intersectiontest(P, Rd, red);
 
 			index = i * width * 4 + j * 4;
-			if (r < tNearest && w < tNearest && w < r) {
+			if (point == hit && points == hit) {
+				float r = intersectionloc(P, Rd, red);
+				float w = intersectionloc(P, Rd, tri);
 
-				float point = intersectiontest(P, Rd, tri);
+				if (r < tNearest && w < tNearest && w < r) {
 
-				//std::cout << point << " ";
+					//std::cout << point << " ";
 
+					pixel[index + 0] = point; //Red
+					pixel[index + 1] = point; //Green
+					pixel[index + 2] = point; //Blue
+					pixel[index + 3] = 1.0; // Alpha
+				}
+				else {
+
+					//std::cout << point << " ";
+
+					pixel[index + 0] = points; //Red
+					pixel[index + 1] = 0; //Green
+					pixel[index + 2] = 0; //Blue
+					pixel[index + 3] = 1.0; // Alpha
+
+				}
+			}
+			else if (point == hit && points == miss) {
+			
 				pixel[index + 0] = point; //Red
 				pixel[index + 1] = point; //Green
 				pixel[index + 2] = point; //Blue
 				pixel[index + 3] = 1.0; // Alpha
+
 			}
-			else {
+			else if (point == miss && points == hit) {
 
-				float point = intersectiontest(P, Rd, red);
-
-				//std::cout << point << " ";
-
-				pixel[index + 0] = point; //Red
+				pixel[index + 0] = points; //Red
 				pixel[index + 1] = 0; //Green
 				pixel[index + 2] = 0; //Blue
 				pixel[index + 3] = 1.0; // Alpha
@@ -210,15 +265,24 @@ int main(int argc, char** argv)
 			Eigen::Vector3d Pc(Pcx, Pcy, -1);
 			Eigen::Vector3d rd = Pc - P;
 
-			int mark = circletest(P, rd, cen, radius);
-
-			index = i * width * 4 + j * 4;
+			Eigen::Vector3d mark = circletest(P, rd, cen, radius);
 
 				//std::cout << mark << " ";
+			
+			float Kd = .8;
+			float Ks = .1;
+			float Ka = .2;
+			Eigen::Vector3d rcol(1,0,0);
+			Eigen::Vector3d lwcol(1,1,1);
+			Eigen::Vector3d light(2,2,2);
 
-				pix[index + 0] = mark; //Red
-				pix[index + 1] = mark; //Green
-				pix[index + 2] = mark; //Blue
+			Eigen::Vector3d filler = shade(P,mark,Kd,Ks,Ka,rcol,lwcol,light,cen);
+	
+			    index = i * width * 4 + j * 4;
+				
+				pix[index + 0] = filler(0); //Red
+				pix[index + 1] = filler(1); //Green
+				pix[index + 2] = filler(2); //Blue
 				pix[index + 3] = 1.0; // Alpha
 
 		}
@@ -228,3 +292,4 @@ int main(int argc, char** argv)
 	test_ldr.save("A.png", pix);
 	std::cout << "Here";
 }
+
